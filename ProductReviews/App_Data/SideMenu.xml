@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<menu>
+  <group Text="Amazon">
+    <item Text="Upload Amazon Orders" NavigateUrl="/Admin/AmazonOrders.aspx" />
+    <item Text="Amazon Reviews" NavigateUrl="/Admin/AmazonReviews.aspx"  />
+  </group>
+  <group Text="PayPal">
+    <item Text="Refunds" NavigateUrl="/Admin/Refunds.aspx" />
+  </group>
+  <group Text="FaceBook">
+    <item Text="Update Agents" NavigateUrl="/Admin/UpdateAgentsWithMessenger.aspx" />
+  </group>
+</menu>

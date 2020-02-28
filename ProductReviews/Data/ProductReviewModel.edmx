@@ -1,0 +1,722 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ProductReviewModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Agent">
+          <Key>
+            <PropertyRef Name="AgentID" />
+          </Key>
+          <Property Name="AgentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MessengerLink" Type="varchar" MaxLength="250" />
+          <Property Name="FullName" Type="varchar" MaxLength="200" />
+          <Property Name="WhatsAppID" Type="varchar" MaxLength="250" />
+          <Property Name="AgentEmail" Type="varchar" MaxLength="150" />
+          <Property Name="AgentPhone" Type="varchar" MaxLength="20" />
+          <Property Name="AgentNotes" Type="varchar" MaxLength="2000" />
+          <Property Name="LastModified" Type="datetime" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="100" />
+          <Property Name="MessengerName" Type="varchar" MaxLength="100" />
+          <Property Name="MessengerUserName" Type="varchar" MaxLength="100" />
+          <Property Name="MessengerIsVerified" Type="bit" />
+          <Property Name="MessengerIsUser" Type="bit" />
+          <Property Name="MessengerType" Type="varchar" MaxLength="20" />
+          <Property Name="MessengerID" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="OfferStatus">
+          <Key>
+            <PropertyRef Name="OfferStatusID" />
+          </Key>
+          <Property Name="OfferStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OfferDate" Type="datetime" Nullable="false" />
+          <Property Name="AgentID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="OfferType" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" />
+          <Property Name="ReceivedDate" Type="datetime" />
+          <Property Name="ReviewSubmittedDate" Type="datetime" />
+          <Property Name="ReviewLiveDate" Type="datetime" />
+          <Property Name="RefundRequestedDate" Type="datetime" />
+          <Property Name="PaymentDate" Type="datetime" />
+          <Property Name="ProductCost" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="RefundedAmount" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="OfferNotes" Type="varchar(max)" />
+          <Property Name="RefundID" Type="int" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AgentID" Type="int" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" Nullable="false" />
+          <Property Name="AmazonOrderID" Type="varchar" MaxLength="50" />
+          <Property Name="PaymentInfo" Type="varchar" MaxLength="100" />
+          <Property Name="SubTotal" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="Tax" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="Total" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="OrderNotes" Type="varchar" MaxLength="2000" />
+          <Property Name="LastModified" Type="datetime" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="ProductTitle" Type="varchar" MaxLength="1000" />
+          <Property Name="ProductCategory" Type="varchar" MaxLength="100" />
+          <Property Name="ASIN_ISBN" Type="varchar" MaxLength="50" />
+          <Property Name="UNSPSC_Code" Type="varchar" MaxLength="50" />
+          <Property Name="Seller" Type="varchar" MaxLength="200" />
+          <Property Name="ListPrice" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="PurchasePrice" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="ShipStatus" Type="varchar" MaxLength="200" />
+          <Property Name="TrackingInfo" Type="varchar" MaxLength="250" />
+          <Property Name="ItemSubtotal" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="ItemTax" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="ItemTotal" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="ProductNotes" Type="varchar" MaxLength="2000" />
+          <Property Name="LastModified" Type="datetime" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Refund">
+          <Key>
+            <PropertyRef Name="RefundID" />
+          </Key>
+          <Property Name="RefundID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="RefundType" Type="varchar" MaxLength="50" />
+          <Property Name="RefundDate" Type="datetime" />
+          <Property Name="PPTransactionID" Type="varchar" MaxLength="50" />
+          <Property Name="Amount" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="PPFees" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="NetAmount" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="GiftCardType" Type="varchar" MaxLength="200" />
+          <Property Name="GiftCardNumber" Type="varchar" MaxLength="100" />
+          <Property Name="RefundNotes" Type="varchar" MaxLength="2000" />
+          <Property Name="LastModified" Type="datetime" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="ReviewID" />
+          </Key>
+          <Property Name="ReviewID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="OverallRating" Type="float" />
+          <Property Name="SubRating1" Type="float" />
+          <Property Name="SubRating2" Type="float" />
+          <Property Name="SubRating3" Type="float" />
+          <Property Name="Headline" Type="varchar" MaxLength="500" />
+          <Property Name="ReviewDetail" Type="varchar(max)" />
+          <Property Name="DateReviewed" Type="datetime" />
+          <Property Name="Reviewer" Type="varchar" MaxLength="50" />
+          <Property Name="PublicReviewLink" Type="varchar" MaxLength="250" />
+          <Property Name="ReviewNotes" Type="varchar" MaxLength="2000" />
+          <Property Name="LastModified" Type="datetime" />
+          <Property Name="ExternalId" Type="varchar" MaxLength="100" />
+          <Property Name="AmazonReviewID" Type="varchar" MaxLength="50" />
+          <Property Name="ProductASIN" Type="varchar" MaxLength="20" />
+          <Property Name="ProductTitle" Type="varchar(max)" />
+          <Property Name="ReviewType" Type="varchar" MaxLength="50" />
+          <Property Name="VerifiedPurchase" Type="bit" />
+          <Property Name="Vine" Type="bit" />
+          <Property Name="Zebra" Type="bit" />
+          <Property Name="Visibility" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ProductReview.dbo.vRefundsNeedMappedToProduct' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vRefundsNeedMappedToProduct">
+          <Key>
+            <PropertyRef Name="AgentID" />
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="AgentID" Type="int" Nullable="false" />
+          <Property Name="MessengerLink" Type="varchar" MaxLength="250" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="ItemSubtotal" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="Total" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="ProductTitle" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <Association Name="FK_OfferStatus_Agent">
+          <End Role="Agent" Type="Self.Agent" Multiplicity="1" />
+          <End Role="OfferStatus" Type="Self.OfferStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agent">
+              <PropertyRef Name="AgentID" />
+            </Principal>
+            <Dependent Role="OfferStatus">
+              <PropertyRef Name="AgentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OfferStatus_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="OfferStatus" Type="Self.OfferStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="OfferStatus">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OfferStatus_Refund">
+          <End Role="Refund" Type="Self.Refund" Multiplicity="0..1" />
+          <End Role="OfferStatus" Type="Self.OfferStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Refund">
+              <PropertyRef Name="RefundID" />
+            </Principal>
+            <Dependent Role="OfferStatus">
+              <PropertyRef Name="RefundID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Agent">
+          <End Role="Agent" Type="Self.Agent" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agent">
+              <PropertyRef Name="AgentID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="AgentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Refund_Refund">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Refund" Type="Self.Refund" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Refund">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Review_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProductReviewModelStoreContainer">
+          <EntitySet Name="Agent" EntityType="Self.Agent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OfferStatus" EntityType="Self.OfferStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Refund" EntityType="Self.Refund" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Review" EntityType="Self.Review" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vRefundsNeedMappedToProduct" EntityType="Self.vRefundsNeedMappedToProduct" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vRefundsNeedMappedToProduct].[AgentID] AS [AgentID], 
+    [vRefundsNeedMappedToProduct].[MessengerLink] AS [MessengerLink], 
+    [vRefundsNeedMappedToProduct].[ProductID] AS [ProductID], 
+    [vRefundsNeedMappedToProduct].[ItemSubtotal] AS [ItemSubtotal], 
+    [vRefundsNeedMappedToProduct].[Total] AS [Total], 
+    [vRefundsNeedMappedToProduct].[ProductTitle] AS [ProductTitle]
+    FROM [dbo].[vRefundsNeedMappedToProduct] AS [vRefundsNeedMappedToProduct]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_OfferStatus_Agent" Association="Self.FK_OfferStatus_Agent">
+            <End Role="Agent" EntitySet="Agent" />
+            <End Role="OfferStatus" EntitySet="OfferStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OfferStatus_Product" Association="Self.FK_OfferStatus_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="OfferStatus" EntitySet="OfferStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OfferStatus_Refund" Association="Self.FK_OfferStatus_Refund">
+            <End Role="Refund" EntitySet="Refund" />
+            <End Role="OfferStatus" EntitySet="OfferStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Agent" Association="Self.FK_Order_Agent">
+            <End Role="Agent" EntitySet="Agent" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Order" Association="Self.FK_Product_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Refund_Refund" Association="Self.FK_Refund_Refund">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Refund" EntitySet="Refund" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_Product" Association="Self.FK_Review_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Review" EntitySet="Review" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProductReviewModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Agent">
+          <Key>
+            <PropertyRef Name="AgentID" />
+          </Key>
+          <Property Name="AgentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MessengerLink" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="FullName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="WhatsAppID" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="AgentEmail" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="AgentPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AgentNotes" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="LastModified" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OfferStatus" Relationship="Self.FK_OfferStatus_Agent" FromRole="Agent" ToRole="OfferStatus" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Agent" FromRole="Agent" ToRole="Order" />
+          <Property Name="MessengerName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MessengerUserName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MessengerIsVerified" Type="Boolean" />
+          <Property Name="MessengerIsUser" Type="Boolean" />
+          <Property Name="MessengerType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MessengerID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="OfferStatu">
+          <Key>
+            <PropertyRef Name="OfferStatusID" />
+          </Key>
+          <Property Name="OfferStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OfferDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AgentID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="OfferType" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OrderDate" Type="DateTime" Precision="3" />
+          <Property Name="ReceivedDate" Type="DateTime" Precision="3" />
+          <Property Name="ReviewSubmittedDate" Type="DateTime" Precision="3" />
+          <Property Name="ReviewLiveDate" Type="DateTime" Precision="3" />
+          <Property Name="RefundRequestedDate" Type="DateTime" Precision="3" />
+          <Property Name="PaymentDate" Type="DateTime" Precision="3" />
+          <Property Name="ProductCost" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="RefundedAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="OfferNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RefundID" Type="Int32" />
+          <NavigationProperty Name="Agent" Relationship="Self.FK_OfferStatus_Agent" FromRole="OfferStatus" ToRole="Agent" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_OfferStatus_Product" FromRole="OfferStatus" ToRole="Product" />
+          <NavigationProperty Name="Refund" Relationship="Self.FK_OfferStatus_Refund" FromRole="OfferStatus" ToRole="Refund" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AgentID" Type="Int32" Nullable="false" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AmazonOrderID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PaymentInfo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SubTotal" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Tax" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Total" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="OrderNotes" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="LastModified" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Agent" Relationship="Self.FK_Order_Agent" FromRole="Order" ToRole="Agent" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Product_Order" FromRole="Order" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="ProductTitle" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ProductCategory" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ASIN_ISBN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UNSPSC_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Seller" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ListPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PurchasePrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="ShipStatus" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TrackingInfo" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ItemSubtotal" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ItemTax" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ItemTotal" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ProductNotes" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="LastModified" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OfferStatus" Relationship="Self.FK_OfferStatus_Product" FromRole="Product" ToRole="OfferStatus" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Product_Order" FromRole="Product" ToRole="Order" />
+          <NavigationProperty Name="Refunds" Relationship="Self.FK_Refund_Refund" FromRole="Product" ToRole="Refund" />
+          <NavigationProperty Name="Reviews" Relationship="ProductReviewModel.FK_Review_Product" FromRole="Product" ToRole="Review" />
+        </EntityType>
+        <EntityType Name="Refund">
+          <Key>
+            <PropertyRef Name="RefundID" />
+          </Key>
+          <Property Name="RefundID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="RefundType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RefundDate" Type="DateTime" Precision="3" />
+          <Property Name="PPTransactionID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PPFees" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="NetAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="GiftCardType" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="GiftCardNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RefundNotes" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="LastModified" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OfferStatus" Relationship="Self.FK_OfferStatus_Refund" FromRole="Refund" ToRole="OfferStatus" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Refund_Refund" FromRole="Refund" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_OfferStatus_Agent">
+          <End Role="Agent" Type="Self.Agent" Multiplicity="1" />
+          <End Role="OfferStatus" Type="Self.OfferStatu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agent">
+              <PropertyRef Name="AgentID" />
+            </Principal>
+            <Dependent Role="OfferStatus">
+              <PropertyRef Name="AgentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Agent">
+          <End Role="Agent" Type="Self.Agent" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agent">
+              <PropertyRef Name="AgentID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="AgentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OfferStatus_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="OfferStatus" Type="Self.OfferStatu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="OfferStatus">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OfferStatus_Refund">
+          <End Role="Refund" Type="Self.Refund" Multiplicity="0..1" />
+          <End Role="OfferStatus" Type="Self.OfferStatu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Refund">
+              <PropertyRef Name="RefundID" />
+            </Principal>
+            <Dependent Role="OfferStatus">
+              <PropertyRef Name="RefundID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Refund_Refund">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Refund" Type="Self.Refund" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Refund">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProductReviewEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Agents" EntityType="Self.Agent" />
+          <EntitySet Name="OfferStatus" EntityType="Self.OfferStatu" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="Refunds" EntityType="Self.Refund" />
+          <AssociationSet Name="FK_OfferStatus_Agent" Association="Self.FK_OfferStatus_Agent">
+            <End Role="Agent" EntitySet="Agents" />
+            <End Role="OfferStatus" EntitySet="OfferStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Agent" Association="Self.FK_Order_Agent">
+            <End Role="Agent" EntitySet="Agents" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OfferStatus_Product" Association="Self.FK_OfferStatus_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="OfferStatus" EntitySet="OfferStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OfferStatus_Refund" Association="Self.FK_OfferStatus_Refund">
+            <End Role="Refund" EntitySet="Refunds" />
+            <End Role="OfferStatus" EntitySet="OfferStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Order" Association="Self.FK_Product_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Refund_Refund" Association="Self.FK_Refund_Refund">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Refund" EntitySet="Refunds" />
+          </AssociationSet>
+          <EntitySet Name="vRefundsNeedMappedToProducts" EntityType="ProductReviewModel.vRefundsNeedMappedToProduct" />
+          <EntitySet Name="Reviews" EntityType="ProductReviewModel.Review" />
+          <AssociationSet Name="FK_Review_Product" Association="ProductReviewModel.FK_Review_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="vRefundsNeedMappedToProduct">
+          <Key>
+            <PropertyRef Name="AgentID" />
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="AgentID" Type="Int32" Nullable="false" />
+          <Property Name="MessengerLink" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="ItemSubtotal" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ProductTitle" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Total" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="ReviewID" />
+          </Key>
+          <Property Name="ReviewID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="OverallRating" Type="Double" />
+          <Property Name="SubRating1" Type="Double" />
+          <Property Name="SubRating2" Type="Double" />
+          <Property Name="SubRating3" Type="Double" />
+          <Property Name="Headline" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ReviewDetail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DateReviewed" Type="DateTime" Precision="3" />
+          <Property Name="Reviewer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PublicReviewLink" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ReviewNotes" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="LastModified" Type="DateTime" Precision="3" />
+          <Property Name="ExternalId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AmazonReviewID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProductASIN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ProductTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ReviewType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VerifiedPurchase" Type="Boolean" />
+          <Property Name="Vine" Type="Boolean" />
+          <Property Name="Zebra" Type="Boolean" />
+          <Property Name="Visibility" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Product" Relationship="ProductReviewModel.FK_Review_Product" FromRole="Review" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_Review_Product">
+          <End Type="ProductReviewModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="ProductReviewModel.Review" Role="Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProductReviewModelStoreContainer" CdmEntityContainer="ProductReviewEntities">
+          <EntitySetMapping Name="Agents">
+            <EntityTypeMapping TypeName="ProductReviewModel.Agent">
+              <MappingFragment StoreEntitySet="Agent">
+                <ScalarProperty Name="MessengerID" ColumnName="MessengerID" />
+                <ScalarProperty Name="MessengerType" ColumnName="MessengerType" />
+                <ScalarProperty Name="MessengerIsUser" ColumnName="MessengerIsUser" />
+                <ScalarProperty Name="MessengerIsVerified" ColumnName="MessengerIsVerified" />
+                <ScalarProperty Name="MessengerUserName" ColumnName="MessengerUserName" />
+                <ScalarProperty Name="MessengerName" ColumnName="MessengerName" />
+                <ScalarProperty Name="AgentID" ColumnName="AgentID" />
+                <ScalarProperty Name="MessengerLink" ColumnName="MessengerLink" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="WhatsAppID" ColumnName="WhatsAppID" />
+                <ScalarProperty Name="AgentEmail" ColumnName="AgentEmail" />
+                <ScalarProperty Name="AgentPhone" ColumnName="AgentPhone" />
+                <ScalarProperty Name="AgentNotes" ColumnName="AgentNotes" />
+                <ScalarProperty Name="LastModified" ColumnName="LastModified" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OfferStatus">
+            <EntityTypeMapping TypeName="ProductReviewModel.OfferStatu">
+              <MappingFragment StoreEntitySet="OfferStatus">
+                <ScalarProperty Name="OfferStatusID" ColumnName="OfferStatusID" />
+                <ScalarProperty Name="OfferDate" ColumnName="OfferDate" />
+                <ScalarProperty Name="AgentID" ColumnName="AgentID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="OfferType" ColumnName="OfferType" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
+                <ScalarProperty Name="ReviewSubmittedDate" ColumnName="ReviewSubmittedDate" />
+                <ScalarProperty Name="ReviewLiveDate" ColumnName="ReviewLiveDate" />
+                <ScalarProperty Name="RefundRequestedDate" ColumnName="RefundRequestedDate" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="ProductCost" ColumnName="ProductCost" />
+                <ScalarProperty Name="RefundedAmount" ColumnName="RefundedAmount" />
+                <ScalarProperty Name="OfferNotes" ColumnName="OfferNotes" />
+                <ScalarProperty Name="RefundID" ColumnName="RefundID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="ProductReviewModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="AgentID" ColumnName="AgentID" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="AmazonOrderID" ColumnName="AmazonOrderID" />
+                <ScalarProperty Name="PaymentInfo" ColumnName="PaymentInfo" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="Tax" ColumnName="Tax" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="OrderNotes" ColumnName="OrderNotes" />
+                <ScalarProperty Name="LastModified" ColumnName="LastModified" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="ProductReviewModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ProductTitle" ColumnName="ProductTitle" />
+                <ScalarProperty Name="ProductCategory" ColumnName="ProductCategory" />
+                <ScalarProperty Name="ASIN_ISBN" ColumnName="ASIN_ISBN" />
+                <ScalarProperty Name="UNSPSC_Code" ColumnName="UNSPSC_Code" />
+                <ScalarProperty Name="Seller" ColumnName="Seller" />
+                <ScalarProperty Name="ListPrice" ColumnName="ListPrice" />
+                <ScalarProperty Name="PurchasePrice" ColumnName="PurchasePrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ShipStatus" ColumnName="ShipStatus" />
+                <ScalarProperty Name="TrackingInfo" ColumnName="TrackingInfo" />
+                <ScalarProperty Name="ItemSubtotal" ColumnName="ItemSubtotal" />
+                <ScalarProperty Name="ItemTax" ColumnName="ItemTax" />
+                <ScalarProperty Name="ItemTotal" ColumnName="ItemTotal" />
+                <ScalarProperty Name="ProductNotes" ColumnName="ProductNotes" />
+                <ScalarProperty Name="LastModified" ColumnName="LastModified" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Refunds">
+            <EntityTypeMapping TypeName="ProductReviewModel.Refund">
+              <MappingFragment StoreEntitySet="Refund">
+                <ScalarProperty Name="RefundID" ColumnName="RefundID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="RefundType" ColumnName="RefundType" />
+                <ScalarProperty Name="RefundDate" ColumnName="RefundDate" />
+                <ScalarProperty Name="PPTransactionID" ColumnName="PPTransactionID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="PPFees" ColumnName="PPFees" />
+                <ScalarProperty Name="NetAmount" ColumnName="NetAmount" />
+                <ScalarProperty Name="GiftCardType" ColumnName="GiftCardType" />
+                <ScalarProperty Name="GiftCardNumber" ColumnName="GiftCardNumber" />
+                <ScalarProperty Name="RefundNotes" ColumnName="RefundNotes" />
+                <ScalarProperty Name="LastModified" ColumnName="LastModified" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vRefundsNeedMappedToProducts">
+            <EntityTypeMapping TypeName="ProductReviewModel.vRefundsNeedMappedToProduct">
+              <MappingFragment StoreEntitySet="vRefundsNeedMappedToProduct">
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="ProductTitle" ColumnName="ProductTitle" />
+                <ScalarProperty Name="ItemSubtotal" ColumnName="ItemSubtotal" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="MessengerLink" ColumnName="MessengerLink" />
+                <ScalarProperty Name="AgentID" ColumnName="AgentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="ProductReviewModel.Review">
+              <MappingFragment StoreEntitySet="Review">
+                <ScalarProperty Name="Visibility" ColumnName="Visibility" />
+                <ScalarProperty Name="Zebra" ColumnName="Zebra" />
+                <ScalarProperty Name="Vine" ColumnName="Vine" />
+                <ScalarProperty Name="VerifiedPurchase" ColumnName="VerifiedPurchase" />
+                <ScalarProperty Name="ReviewType" ColumnName="ReviewType" />
+                <ScalarProperty Name="ProductTitle" ColumnName="ProductTitle" />
+                <ScalarProperty Name="ProductASIN" ColumnName="ProductASIN" />
+                <ScalarProperty Name="AmazonReviewID" ColumnName="AmazonReviewID" />
+                <ScalarProperty Name="ExternalId" ColumnName="ExternalId" />
+                <ScalarProperty Name="LastModified" ColumnName="LastModified" />
+                <ScalarProperty Name="ReviewNotes" ColumnName="ReviewNotes" />
+                <ScalarProperty Name="PublicReviewLink" ColumnName="PublicReviewLink" />
+                <ScalarProperty Name="Reviewer" ColumnName="Reviewer" />
+                <ScalarProperty Name="DateReviewed" ColumnName="DateReviewed" />
+                <ScalarProperty Name="ReviewDetail" ColumnName="ReviewDetail" />
+                <ScalarProperty Name="Headline" ColumnName="Headline" />
+                <ScalarProperty Name="SubRating3" ColumnName="SubRating3" />
+                <ScalarProperty Name="SubRating2" ColumnName="SubRating2" />
+                <ScalarProperty Name="SubRating1" ColumnName="SubRating1" />
+                <ScalarProperty Name="OverallRating" ColumnName="OverallRating" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ReviewID" ColumnName="ReviewID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

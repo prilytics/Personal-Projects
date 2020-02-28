@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<items>
+  <item Text="Home" NavigateUrl="/Default.aspx" />
+  <item Text="Orders" NavigateUrl="/Admin/AmazonOrders.aspx" />
+  <item Text="Reviews" NavigateUrl="/Admin/AmazonReviews.aspx"  />
+  <item Text="Refunds" NavigateUrl="/Admin/Refunds.aspx"  />
+  <item Text="Agents" NavigateUrl="/Admin/UpdateAgentsWithMessenger.aspx"  />
+</items>
